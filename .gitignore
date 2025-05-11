@@ -1,0 +1,26 @@
+# Virtual environment
+venv_promoteratlas_rf/
+venv/
+env/
+.env/
+
+# Job outputs
+job_outputs/
+
+# PBS files
+*.pbs
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/data/
+
+data/

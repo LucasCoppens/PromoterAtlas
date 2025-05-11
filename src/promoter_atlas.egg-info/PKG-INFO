@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: promoter_atlas
+Version: 0.1.0
+Requires-Dist: torch
+Requires-Dist: numpy
+Requires-Dist: h5py
+Requires-Dist: matplotlib
