@@ -69,8 +69,8 @@ python scripts/make_logit_plot.py --genbank your_genome.gb --locus-tag your_gene
 python scripts/predict_expression.py --input sequences.fasta --output predictions.csv --model-path trained_model_weights/promoteratlas-trspred-lafleur2022.pt
 ```
 
-Note 1: The expression prediction models are trained on 86 nc sequences so input sequences for inference should have a length of 86 as well.\n
-Note 2: Our model outputs negative values where more negative = stronger promoter. 
+##### Note 1: The expression prediction models are trained on 86 nc sequences so input sequences for inference should have a length of 86 as well.
+##### Note 2: Our model outputs negative values where more negative = stronger promoter. 
 
 ### Train Base Model
 
