@@ -1,6 +1,0 @@
-setup.py
-src/promoter_atlas.egg-info/PKG-INFO
-src/promoter_atlas.egg-info/SOURCES.txt
-src/promoter_atlas.egg-info/dependency_links.txt
-src/promoter_atlas.egg-info/requires.txt
-src/promoter_atlas.egg-info/top_level.txt
