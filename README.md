@@ -16,7 +16,6 @@ PromoterAtlas is a 1.8 million parameter transformer model trained on approximat
 - **Cross-species regulatory element recognition**: Identifies conserved regulatory features across the gammaproteobacteria clade
 - **Promoter annotation**: Accurate in silico identification of regulatory features across gammaproteobacteria
 - **Expression prediction**: State-of-the-art performance in predicting transcription and translation levels
-- **Co-regulated gene identification**: Cluster identification of genes with similar regulatory patterns
 
 ## Model Architecture
 
@@ -70,11 +69,7 @@ python scripts/make_logit_plot.py --genbank your_genome.gb --locus-tag your_gene
 python scripts/predict_expression.py --input sequences.fasta --output predictions.csv --model-path trained_model_weights/promoteratlas-trspred-lafleur2022.pt
 ```
 
-### Find Co-regulated Gene Clusters
-
-```bash
-python scripts/find_gene_clusters.py --genbank your_genome.gb --output-prefix results
-```
+Note: Our model outputs negative values where more negative = stronger promoter
 
 ### Train Base Model
 
