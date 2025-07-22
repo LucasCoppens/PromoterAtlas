@@ -8,8 +8,10 @@ setup(
     package_dir={"": "src"},
     install_requires=[
         "torch",
-        "numpy",
+        "numpy<2",
         "h5py",
         "matplotlib",
+        "biopython",
+        "bcbio-gff"
     ],
 )
