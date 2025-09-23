@@ -61,7 +61,7 @@ def main():
     # Load model
     print(f"Loading model from {args.model_path}")
     model = DNATransformer()
-    checkpoint = torch.load(args.model_path, map_location=device)
+    checkpoint = torch.load(args.model_path, map_location=device, weights_only=False)
     
     if 'model_state_dict' in checkpoint:
         model.load_state_dict(checkpoint['model_state_dict'])
