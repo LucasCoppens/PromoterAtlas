@@ -62,6 +62,7 @@ python scripts/annotate_genbank.py --input your_genome.gb --output annotated_gen
 ```bash
 python scripts/make_logit_plot.py --genbank your_genome.gb --locus-tag your_gene_tag --output gene_plot.png
 ```
+To include the attention map visualisation, add `--attention-map`
 
 ### Predict Gene Expression
 
