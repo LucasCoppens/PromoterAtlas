@@ -3,7 +3,7 @@ from Bio import SeqIO
 from typing import List, Dict, Any, Optional, Union
 import torch
 
-def extract_promoter_regions(gbs, min_intergenic_length=50, regulatory_region_length=200):
+def extract_promoter_regions(gbs, min_intergenic_length=5, regulatory_region_length=200):
     """Extract promoter regions from GenBank records with comprehensive metadata."""
     promoter_regions = []
 
