@@ -26,3 +26,4 @@ build/
 
 data/distances
 data/processed/*
+.DS_Store

@@ -1,60 +1,39 @@
 #!/usr/bin/env python
-import argparse
+"""
+DEPRECATED: This script is deprecated in favor of the unified annotate.py script.
+
+This wrapper maintains backward compatibility but will be removed in a future version.
+Please use: python scripts/annotate.py --input your_genome.gb --output annotated.gb
+
+For GenBank files, the new script works identically to this one.
+"""
+
+import warnings
+import sys
 from pathlib import Path
-import torch
-from Bio import SeqIO
 
-from promoter_atlas.models.promoter_segmenter import PromoterSegmenter
-from promoter_atlas.annotation.genbank_annotator import annotate_genbank
+# Issue deprecation warning
+warnings.warn(
+    "\n" + "="*70 + "\n"
+    "DEPRECATION WARNING: annotate_genbank.py is deprecated.\n"
+    "Please use 'annotate.py' instead:\n\n"
+    "  python scripts/annotate.py --input genome.gb --output annotated.gb\n\n"
+    "This wrapper will be removed in a future version.\n"
+    "="*70,
+    DeprecationWarning,
+    stacklevel=2
+)
 
-def main():
-    parser = argparse.ArgumentParser(description="Annotate promoter elements in a GenBank file")
-    parser.add_argument("--input", type=str, required=True,
-                      help="Path to GenBank file or accession number")
-    parser.add_argument("--output", type=str, required=True,
-                      help="Path to save annotated GenBank file")
-    parser.add_argument("--model-path", type=str, 
-                      default="trained_weights/segmentation/promoteratlas-annotation.pt",
-                      help="Path to segmentation model weights")
-    args = parser.parse_args()
-    
-    # Set device
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Using device: {device}")
-    
-    # Load model
-    print(f"Loading model from {args.model_path}")
-    model = PromoterSegmenter.from_pretrained(args.model_path)
-    model = model.to(device)
-    
-    # Load GenBank file or accession
-    input_path = Path(args.input)
-    print(f"Loading GenBank file: {input_path}")
-    with open(input_path) as f:
-        records = list(SeqIO.parse(f, "genbank"))
+# Add scripts directory to path
+scripts_dir = Path(__file__).parent
+sys.path.insert(0, str(scripts_dir))
 
-    if not records:
-        raise ValueError(f"No records found in {args.input}")
-    
-    # Process each record
-    annotated_records = []
-    total_features = 0
-    
-    for record in records:
-        annotated_record, feature_count = annotate_genbank(
-            record, model, device)
-        annotated_records.append(annotated_record)
-        total_features += feature_count
-    
-    # Save output
-    output_path = Path(args.output)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    with open(output_path, 'w') as f:
-        SeqIO.write(annotated_records, f, "genbank")
-    
-    print(f"Processed {len(records)} record(s), added {total_features} features")
-    print(f"Annotated GenBank saved to: {output_path}")
+# Import and run the unified annotate script
+import annotate
+
+# Force format to genbank if not specified
+if "--format" not in sys.argv:
+    sys.argv.extend(["--format", "genbank"])
 
 if __name__ == "__main__":
-    main()
+    annotate.main()
