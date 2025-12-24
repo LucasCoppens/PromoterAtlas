@@ -110,11 +110,12 @@ def main():
             if p['locus_tag'] == args.locus_tag:
                 promoter = p
                 break
-        
+
         if not promoter:
             raise ValueError(f"Locus tag {args.locus_tag} not found in GenBank file")
         
         sequence = promoter['sequence']
+        
         if promoter['gene']:
             title = f"{promoter['organism']} {promoter['locus_tag']} ({promoter['gene']})"
         else:
