@@ -22,13 +22,18 @@ LABEL_MAP = {
 }
 
 
-def find_consecutive_segments(predictions: List[int], min_length: int = 4) -> List[Dict[str, Any]]:
+def find_consecutive_segments(
+    predictions: List[int],
+    min_length: int = 3,
+    apply_cooccurrence: bool = True
+) -> List[Dict[str, Any]]:
     """
     Find segments with at least min_length consecutive same predictions.
 
     Args:
         predictions: List of predicted class labels
-        min_length: Minimum consecutive length for a valid segment
+        min_length: Minimum consecutive length for a valid segment (default: 3)
+        apply_cooccurrence: Whether to apply co-occurrence rules (default: True)
 
     Returns:
         List of segment dictionaries with 'label', 'start', 'end'
@@ -60,8 +65,11 @@ def find_consecutive_segments(predictions: List[int], min_length: int = 4) -> Li
             'end': len(predictions)
         })
 
-    # Apply co-occurrence rules
-    return apply_cooccurrence_rules(segments)
+    # Apply co-occurrence rules if requested
+    if apply_cooccurrence:
+        return apply_cooccurrence_rules(segments)
+    else:
+        return segments
 
 
 def apply_cooccurrence_rules(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -152,7 +160,8 @@ def annotate_records(
     promoter_regions: List[Dict[str, Any]],
     model,
     device: str = 'cpu',
-    min_segment_length: int = 4
+    min_segment_length: int = 3,
+    apply_cooccurrence: bool = True
 ) -> tuple[List[SeqRecord], int]:
     """
     Annotate genome records with promoter elements.
@@ -164,7 +173,8 @@ def annotate_records(
         promoter_regions: List of promoter region dictionaries from extraction
         model: PromoterSegmenter model
         device: Device to run inference on ('cpu' or 'cuda')
-        min_segment_length: Minimum length for regulatory segments
+        min_segment_length: Minimum consecutive bases for regulatory segments (default: 3)
+        apply_cooccurrence: Apply co-occurrence rules for paired elements (default: True)
 
     Returns:
         Tuple of (annotated_records, feature_count)
@@ -192,7 +202,11 @@ def annotate_records(
             predictions = logits.argmax(dim=1)[0].cpu().tolist()
 
         # Find consecutive segment predictions
-        segments = find_consecutive_segments(predictions, min_length=min_segment_length)
+        segments = find_consecutive_segments(
+            predictions,
+            min_length=min_segment_length,
+            apply_cooccurrence=apply_cooccurrence
+        )
 
         # Create and add features to the corresponding record
         record_id = promoter.get('record_id', records[0].id)
