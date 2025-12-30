@@ -103,8 +103,13 @@ Examples:
     parser.add_argument(
         "--min-segment-length",
         type=int,
-        default=4,
-        help="Minimum length for regulatory segments (bp, default: 4)"
+        default=3,
+        help="Minimum consecutive bases for regulatory segments (bp, default: 3)"
+    )
+    parser.add_argument(
+        "--no-cooccurrence",
+        action="store_true",
+        help="Disable co-occurrence rules for paired promoter elements"
     )
 
     # Device argument
@@ -181,7 +186,8 @@ Examples:
             promoter_regions,
             model,
             device=str(device),
-            min_segment_length=args.min_segment_length
+            min_segment_length=args.min_segment_length,
+            apply_cooccurrence=not args.no_cooccurrence
         )
         print(f"Added {feature_count} regulatory features")
 
