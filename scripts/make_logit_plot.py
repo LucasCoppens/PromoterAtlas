@@ -61,7 +61,7 @@ def main():
     # Load model
     print(f"Loading model from {args.model_path}")
     model = DNATransformer()
-    checkpoint = torch.load(args.model_path, map_location=device)
+    checkpoint = torch.load(args.model_path, map_location=device, weights_only=False)
     
     if 'model_state_dict' in checkpoint:
         model.load_state_dict(checkpoint['model_state_dict'])
@@ -110,11 +110,12 @@ def main():
             if p['locus_tag'] == args.locus_tag:
                 promoter = p
                 break
-        
+
         if not promoter:
             raise ValueError(f"Locus tag {args.locus_tag} not found in GenBank file")
         
         sequence = promoter['sequence']
+        
         if promoter['gene']:
             title = f"{promoter['organism']} {promoter['locus_tag']} ({promoter['gene']})"
         else:

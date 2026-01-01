@@ -12,6 +12,8 @@ setup(
         "h5py",
         "matplotlib",
         "biopython",
-        "bcbio-gff"
+        "bcbio-gff",
+        "pandas",
+        "logomaker"
     ],
 )

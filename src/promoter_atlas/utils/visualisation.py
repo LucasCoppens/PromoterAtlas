@@ -21,6 +21,8 @@ def analyse_sequence(sequence: str, model, device='cpu'):
     
     with torch.no_grad():
         output, attention_scores = model(x)
+        # apply softmax to get probabilities
+        # output = torch.softmax(output, dim=1)
         
     # Calculate position importance
     position_importance = get_average_attention_scores(attention_scores)

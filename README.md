@@ -51,10 +51,16 @@ The `trained_model_weights` directory contains weights for various models traine
 
 ## Usage Examples
 
-### Annotate Promoter Elements in a GenBank File
+### Annotate Promoter Elements
+
+Supports both GenBank and GFF3 formats:
 
 ```bash
-python scripts/annotate_genbank.py --input your_genome.gb --output annotated_genome.gb
+# GenBank
+python scripts/annotate.py --input genome.gb --output annotated.gb
+
+# GFF3 (requires separate FASTA reference)
+python scripts/annotate.py --input genome.gff3 --reference genome.fasta --output annotated.gff3
 ```
 
 ### Visualize DNA Sequence Features
@@ -62,6 +68,7 @@ python scripts/annotate_genbank.py --input your_genome.gb --output annotated_gen
 ```bash
 python scripts/make_logit_plot.py --genbank your_genome.gb --locus-tag your_gene_tag --output gene_plot.png
 ```
+To include the attention map visualisation, add `--attention-map`
 
 ### Predict Gene Expression
 
