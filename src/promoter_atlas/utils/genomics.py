@@ -11,6 +11,11 @@ def extract_promoter_regions(gbs, min_intergenic_length=50, regulatory_region_le
         features = gb.features
         sequence = gb.seq
 
+        for i in range(5):
+            print(features[i].type, features[i].location, features[i].qualifiers)
+            print(features[i].location.strand, features[i].location.start, features[i].location.end)
+            print()
+
         genes_forward = []
         for feature in features:
             if feature.location.strand == 1 and feature.type == "CDS" and "locus_tag" in feature.qualifiers:
