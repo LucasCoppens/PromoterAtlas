@@ -147,3 +147,11 @@ python scripts/train_base_model.py --n_point_masks 20 --batch_size 1024 --data_p
 
 The data used to train the base model is available at:
 https://huggingface.co/datasets/LCoppens/PromoterAtlas-data
+
+## Citation & Paper
+
+For details on the model architecture, training, and validation, see the accompanying paper:
+
+**PromoterAtlas: decoding regulatory sequences across Gammaproteobacteria using a transformer model**
+
+Code to reproduce all analyses and figures is available at [github.com/LucasCoppens/PromoterAtlas_paper](https://github.com/LucasCoppens/PromoterAtlas_paper).
