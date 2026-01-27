@@ -163,14 +163,14 @@ python scripts/annotate.py --input sequences.fasta --output annotations.json --o
 
 Without `--merge-overlaps`:
 ```
-sequence_id  window_start  window_end  element_type  element_start  element_end  abs_start  abs_end
-seq1         0             200         -10_sig70     145            151          145        151
+sequence_id  window_start  window_end  element_type                   element_start  element_end  abs_start  abs_end
+seq1         0             200         σ70 / σ38 promoter -10 element 145            151          145        151
 ```
 
 With `--merge-overlaps`:
 ```
-sequence_id  element_type  start  end  length
-seq1         -10_sig70     145    151  6
+sequence_id  element_type                    start  end  length
+seq1         σ70 / σ38 promoter -10 element  145    151  6
 ```
 
 ### Visualize DNA Sequence Features
