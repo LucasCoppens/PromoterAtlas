@@ -1,0 +1,8 @@
+torch>=2.0.0
+numpy<2
+h5py>=3.0.0
+matplotlib>=3.4.0
+biopython>=1.79
+bcbio-gff
+pandas>=1.3.0
+logomaker

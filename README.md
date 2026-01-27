@@ -24,6 +24,28 @@ PromoterAtlas uses a custom DNATransformer architecture combining:
 - Rotary attention blocks for capturing long-range dependencies
 - Feed-forward layers with residual connections
 
+## System Requirements
+
+### Software Dependencies
+- Python 3.10 or 3.11
+- PyTorch >= 2.0.0
+- BioPython >= 1.79
+- NumPy < 2.0
+- Pandas >= 1.3.0
+- Matplotlib >= 3.4.0
+- h5py >= 3.0.0
+- logomaker
+- bcbio-gff
+
+### Operating Systems
+- Tested on: macOS 14+, Ubuntu 22.04
+- Should work on: Any OS supporting Python 3.10+ and PyTorch
+
+### Hardware
+- **Minimum:** 8 GB RAM, any modern CPU
+- **Recommended:** 16 GB RAM, CUDA-compatible GPU for faster inference
+- **Disk space:** ~200 MB for models and dependencies
+
 ## Installation
 
 ```bash
@@ -34,6 +56,8 @@ cd PromoterAtlas
 # Install the package
 pip install -e .
 ```
+
+**Typical install time:** 3-5 minutes on a normal desktop computer.
 
 ## Model Weights
 
@@ -48,6 +72,34 @@ The `trained_model_weights` directory contains weights for various models traine
 | promoteratlas-trspred-urtecho2018.pt | TrsPredModel | Transcription prediction based on Urtecho et al. 2018 |
 | promoteratlas-trspred-yu2021.pt | TrsPredModel | Transcription prediction based on Yu et al. 2021 |
 | promoteratlas-tslpred-kosuri2013.pt | TrsPredModel | Translation prediction based on Kosuri et al. 2013 |
+
+## Demo
+
+### Quick Start
+
+Annotate a bacterial genome with promoter predictions:
+
+```bash
+python scripts/annotate.py --input data/genomes/NC_000913.1.gb --output NC_000913.1_annotated_test.gb
+```
+
+### Expected Output
+
+The output GenBank file will contain additional features of type "regulatory" with qualifiers indicating:
+- Sigma factor type (σ70, σ54, σ32, σ28, σ24)
+- -10 and -35 box positions (or -12 and -24 for σ54)
+- Ribosomal binding sites (RBS)
+
+### Demo Run Time
+- **E. coli genome (~4.6 Mb):** ~2-3 minutes on CPU, ~30 seconds with GPU
+- **Smaller genomes:** Proportionally faster
+
+### Expected Demo Output
+
+Running on a typical gammaproteobacterial genome should identify:
+- ~300-400 σ70/σ38 promoters (precision-optimized default settings)
+- ~15-50 alternative sigma factor promoters
+- Results validated against Cho et al. 2014 ChIP-seq data
 
 ## Usage Examples
 
@@ -155,3 +207,7 @@ For details on the model architecture, training, and validation, see the accompa
 **PromoterAtlas: decoding regulatory sequences across Gammaproteobacteria using a transformer model**
 
 Code to reproduce all analyses and figures is available at [github.com/LucasCoppens/PromoterAtlas_paper](https://github.com/LucasCoppens/PromoterAtlas_paper).
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
